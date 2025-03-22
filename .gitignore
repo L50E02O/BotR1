@@ -6,6 +6,5 @@
 __pycache__/
 *.so
 
-# Ignore files virtual enviroment
-venv/
-env/
+# Ignore virtual enviroment files
+BotApi/
