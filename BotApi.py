@@ -20,7 +20,7 @@ def chatGPT_answer(question_and_answers, prompt):
             messages=conversation,
         )
         reply = response.choices[0].message.content.strip()
-        print(f"reply: {reply}")
+        return reply
 
     except Exception as e:
         print(f"API error: {e}")
@@ -41,7 +41,10 @@ def main():
             if not question_and_answers:
                 print("Question cannot be empty. Please enter a valid question.")
     
-
+        # Call chatGPT_answer and print the response
+        response = chatGPT_answer(question_and_answers, prompt)
+        if response:
+            print(f"ChatGPT response: {response}")
         
         answ = ""
         while answ not in ["S", "N"]:
