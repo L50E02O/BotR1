@@ -39,9 +39,9 @@ class DeepSeekR1Strategy(ModelStrategy):
         Identifier for the DeepSeek R1 model.
         
         Returns:
-            str: The model identifier "deepseek/deepseek-r1:free".
+            str: The model identifier "deepseek/deepseek-r1".
         """
-        return "deepseek/deepseek-r1:free"
+        return "deepseek/deepseek-r1"
     
     def process_response(self, response):
         """
