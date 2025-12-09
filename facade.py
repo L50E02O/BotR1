@@ -13,14 +13,15 @@ class APIFacade:
     @staticmethod
     def build_conversation(system_prompt, user_message):
         """
-        Construye la estructura de conversación de forma simple.
+        Constructs a two-message conversation payload with system and user roles.
         
-        Args:
-            system_prompt: Prompt del sistema
-            user_message: Mensaje del usuario
+        Parameters:
+            system_prompt (str): The system-level prompt that sets behavior or context.
+            user_message (str): The user's message to include in the conversation.
         
         Returns:
-            Lista de mensajes formateada para la API
+            list: A list of two dicts formatted for the chat API: 
+                  [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_message}].
         """
         return [
             {"role": "system", "content": system_prompt},
@@ -30,13 +31,13 @@ class APIFacade:
     @staticmethod
     def format_response(response):
         """
-        Extrae y formatea la respuesta de la API.
+        Extracts and return the trimmed content of the first message choice from an OpenAI chat response.
         
-        Args:
-            response: Respuesta de la API de OpenAI
+        Parameters:
+            response: OpenAI chat response object expected to have a `choices` sequence where each choice contains a `message` with `content`.
         
         Returns:
-            Contenido de la respuesta formateado
+            str: The first choice's message content with leading and trailing whitespace removed, or `None` if the response or its choices are missing.
         """
         if response and response.choices:
             return response.choices[0].message.content.strip()
@@ -45,18 +46,16 @@ class APIFacade:
     @staticmethod
     def create_request(client, model, conversation):
         """
-        Crea una petición a la API de forma simplificada.
+        Constructs and sends a chat completion request to the OpenAI API.
         
-        Args:
-            client: Cliente de OpenAI
-            model: Nombre del modelo
-            conversation: Lista de mensajes
+        Parameters:
+            model (str): Model name to use for the completion.
+            conversation (list): List of message objects (dicts) formatted for the API.
         
         Returns:
-            Respuesta de la API
+            The API response object returned by the client's chat completion creation call.
         """
         return client.chat.completions.create(
             model=model,
             messages=conversation
         )
-

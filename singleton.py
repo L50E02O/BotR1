@@ -14,6 +14,14 @@ class OpenAIClientSingleton:
     _lock = threading.Lock()
 
     def __new__(cls):
+        """
+        Ensure a single OpenAIClientSingleton instance exists and initialize the shared OpenAI client on first creation.
+        
+        On first instantiation, this method loads environment variables from a .env file, reads the `R1_api_Key` environment variable, and creates a shared OpenAI client assigned to `cls._client` with `base_url` set to "https://openrouter.ai/api/v1". Initialization is performed in a thread-safe manner to guarantee a single instance across threads.
+        
+        Returns:
+            OpenAIClientSingleton: The singleton instance.
+        """
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
@@ -27,6 +35,10 @@ class OpenAIClientSingleton:
         return cls._instance
 
     def get_client(self):
-        """Retorna la instancia única del cliente."""
+        """
+        Retrieve the shared OpenAI client instance.
+        
+        Returns:
+            openai.OpenAI or None: The singleton OpenAI client stored by the class, or `None` if it has not been initialized.
+        """
         return self._client
-
