@@ -28,7 +28,7 @@ def main():
         
         response = chatbot.get_answer(question, prompt)
         if response:
-            print(f"\nRespuesta de ChatGPT: {response}\n")
+            print(f"\nRespuesta de {strategy.get_model_name()}: {response}\n")
         
         answ = ""
         while answ not in ["S", "N"]:
